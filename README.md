@@ -1,6 +1,6 @@
 # detect-leak
 
-Python program to simulate an IoT pipeline leak detection system.
+Python program to simulate an IoT pipeline leak detection system. Built as part of IoTricity Season 2, organized by the IEI Students' Chapter of EE, Academy of Technology.
 
 - Event: IoTricity Season 2
 - Date: 30 August-1 September, 2025

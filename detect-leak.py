@@ -5,7 +5,6 @@
 # Members: Soumyabrata Bhattacharjee (lead, CSE 3rd year), Souvik Roy (CSE 3rd year), Sudipta Dolay (EE 3rd year)
 # Date: 30 August-1 September, 2025
 
-import matplotlib.pyplot as plt
 import numpy as np
 import random
 import sqlite3
@@ -80,47 +79,6 @@ for i in range(sample_range):
   cursor.execute(f"INSERT INTO PIPELINE VALUES ({timestamps[i]:.1f}, {flow[i]:.2f}, {pressure[i]:.2f}, '{leaked_status}')")
 
 
-# lists for leaks
-leak_timestamps = [timestamps[i] for i in leak_indices]
-leak_flows = [flow[i] for i in leak_indices]
-leak_pressures = [pressure[i] for i in leak_indices]
-
-
-# print database
-print() # to create gap
-print("Pipeline data:")
-print("(time (s), flow (L/s), pressure (kPa), leaked)")
-cursor.execute("SELECT * FROM PIPELINE")
-for row in cursor.fetchall():
-  print(row)
-
 # commit changes and close connection
 conn.commit()
 conn.close()
-
-
-# visualization
-fig, ax = plt.subplots(2) # two subplots
-
-ax[0].set_title("Sensor Data Simulation") # title
-
-# Time vs Flow plot
-ax[0].plot(timestamps, flow, label="Flow (L/s)", color="blue")
-ax[0].set_xlabel("Time (s)")
-ax[0].set_ylabel("Flow (L/s)")
-ax[0].grid(True)
-
-# Time vs Pressure plot
-ax[1].plot(timestamps, pressure, label="Pressure (kPa)", color="green")
-ax[1].set_xlabel("Time (s)")
-ax[1].set_ylabel("Pressure (kPa)")
-ax[1].grid(True)
-
-# mark leaks
-if leak_indices:
-  ax[0].scatter(leak_timestamps, leak_flows, color="red", marker="o", s=100, label="Detected Leak")
-  ax[1].scatter(leak_timestamps, leak_pressures, color="red", marker="o", s=100, label="Detected Leak")
-
-# display plot
-plt.tight_layout()
-plt.show()
